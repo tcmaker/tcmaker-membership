@@ -1,0 +1,58 @@
+- content_for :page_title do
+  Account Setup
+%p
+  As a member, you'll need an account on our membership system so you can
+  manage your contact information and membership details.
+  Let's get that set up now.
+
+- if @member.errors.any?
+  .alert.alert-danger
+    %h5 Error!
+    %ul
+      - @member.errors.full_messages.each do |msg|
+        %li= msg
+
+.row
+  .col-md-7
+    = form_for(@member, url: signup_account_path, method: :post) do |f|
+      - if @member.errors.any?
+        .alert.alert-danger
+          %h5 Error!
+          %ul
+            - @member.errors.full_messages.each do |msg|
+              %li= msg
+
+      .form-group
+        = f.label :first_name
+        = f.text_field :first_name, class: 'form-control'
+      .form-group
+        = f.label :last_name
+        = f.text_field :last_name, class: 'form-control'
+      .form-group
+        = f.label :email
+        = f.email_field :email, class: 'form-control'
+      .form-group
+        = f.label :username, 'Username'
+        = f.text_field :username, class: 'form-control'
+        %small.form-text.text-muted
+          Some systems at Twin Cities Maker, like our Wiki software, require a
+          username. Choose wisely &mdash; it will be very difficult to change
+          this later!
+
+        .form-group
+          = f.label :password
+          = f.password_field :password, class: 'form-control'
+          %small.form-text.text-muted
+            Passwords must contain a capital letter, a lowercase letter, a number,
+            and one of these special characters:
+            %code !@#%^&amp;*$
+        .form-group
+          = f.label :password_confirmation, 'Confirm your password'
+          = f.password_field :password_confirmation, class: 'form-control'
+      .form-group
+        = f.submit 'Next', class: 'btn btn-primary'
+  .col-md-4.offset-md-1
+    %h6 A Word About Privacy
+    %p
+      We take your privacy very seriously and will guard your personal
+      information with our very lives.

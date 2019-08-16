@@ -1,0 +1,13 @@
+%h2 Activate Membership
+
+.card
+  .card-body
+    = form_for(@activation, url: "/admin/activations/#{@activation.id}", method: :patch) do |f|
+      .form-group
+        = f.label :plan
+        = f.select :plan, @select_options, {}, class: 'custom-select'
+      .form-group
+        = f.label :keyfob_code
+        = f.text_field :keyfob_code, class: 'form-control'
+      .form-group
+        = f.submit 'Activate!', class: 'btn btn-primary'

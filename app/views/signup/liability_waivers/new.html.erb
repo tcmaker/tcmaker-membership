@@ -1,0 +1,31 @@
+<% content_for :page_title do %>
+  Liability Waiver
+<% end %>
+
+<p>
+  Our shop is packed to the gills with dangerous, secondhand power tools from
+  the 1950s, so you need to read and accept this fascinating liability waiver
+  to join Twin Cities Maker.
+</p>
+
+<%= form_for(@waiver, url: signup_liability_waiver_path, method: :post) do |f| %>
+  <% if @waiver.errors.any? %>
+    <div class="alert alert-danger">
+      <h5>Error!</h5>
+      <p>You have to agree to the liability waiver to proceed.</p>
+    </div>
+  <% end %>
+
+  <div class="legalese border" style="height: 12em; overflow: scroll; padding: 1em;">
+    <%= render 'partials/liability_waiver_text' %>
+  </div>
+  <div class="mb-4 text-right">
+    <small><a href="/legal/liability_waiver" target="_blank">open in new window</a></small>
+  </div>
+  <div class="form-group form-check">
+    <%= f.check_box :waives_liability %> <%= f.label :waives_liability, "I agree." %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Next', class: 'btn btn-primary' %>
+  </div>
+<% end %>

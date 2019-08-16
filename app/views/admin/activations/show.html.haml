@@ -1,0 +1,31 @@
+%h2 Activations
+
+%p
+  This person wants to join Twin Cities Maker and has completed the
+  signup forms. Their fate rests entirely in your hands.
+
+.card
+  .card-body
+    %h4= @activation.name
+    %p
+      %strong Email:
+      %code= @activation.member.email
+    %p
+      %strong Phone:
+      = @activation.member.contact_record.phone
+    %p
+      %strong
+        Address:
+      %br
+      = @activation.member.contact_record.street_address
+      %br
+      = @activation.member.contact_record.city + ','
+      = @activation.member.contact_record.state_abbreviation
+      = @activation.member.contact_record.postal_code
+    %p
+      %strong Desired Plan:
+      = @activation.plan
+
+    %h5 Decide Their Fate
+    = link_to "Approve", "/admin/activations/#{@activation.id}/edit", class: 'btn btn-primary'
+    =link_to 'Deny', '#', class: 'btn btn-danger'

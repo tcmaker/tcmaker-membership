@@ -1,0 +1,43 @@
+!!! 5
+%html
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    %title Twin Cities Maker
+  %body.authenticated
+    = render 'layouts/partials/topnav'
+    .container-fluid
+      .row
+        %nav.col-md-2.d-none.d-md-block.bg-light.sidebar
+          .sidebar-sticky
+            = render 'layouts/partials/nav_links'
+            = render 'layouts/partials/nav_links'
+            = render 'layouts/partials/nav_links'
+        .col-md-9.ml-sm-auto.col-lg-10.px-4
+          .row
+            .col-md-12
+              %br
+              - unless @breadcrumbs.empty?
+                - last_breadcrumb = @breadcrumbs.pop
+                %ol.breadcrumb
+                  %li.breadcrumb-item
+                    = link_to 'Dashboard', '/dashboard'
+                  - @breadcrumbs.each do |b|
+                    %li.breadcrumb-item
+                      = link_to b.title, b.path
+                  %li.breadcrumb-item.active
+                    = last_breadcrumb.title
+          .row
+            .col-md-12
+              - flash.each do |type, message|
+                = alert_box type, message
+          .row
+            .col-md-12
+              %h2
+                = yield :page_title
+              %hr
+          = yield

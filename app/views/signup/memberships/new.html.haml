@@ -1,0 +1,123 @@
+- content_for :page_title do
+  Payment
+%p
+  Our membership dues keep the lights on and the landlord off our backs.
+  Monthly memberships are $55, and we have 6-month and 12-month plans
+  that will save you money in the long run.
+
+-# - if @membership.errors.any?
+-#   .alert.alert-danger
+-#     %h5 Error!
+-#     %ul
+-#       - @membership.errors.full_messages.each do |msg|
+-#         %li= msg
+
+.row
+  .col-md-7
+    %form#payment_form{ action: signup_membership_path, method: 'POST' }
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+      %h5 Credit Card
+      .card.mb-4
+        .card-body
+          #card-element
+          #card-errors{ role: "alert" }
+
+      %h5 Dues
+
+      %input#preferred_membership_plan{ type: 'hidden', name: 'preferred_plan', value: 'monthly' }
+      #plan-picker.list-group.mb-4
+        %a#monthly.list-group-item.list-group-item-action.flex-column.align-items-start.list-group-item-primary{ href: '#' }
+          .d-flex.w-100.justify-content-between
+            %h6.mb-1 $55 &mdash; Monthly Membership
+          %p This grants you 24/7 access to our workshop and all the wonders held within.
+
+        %a#biannual.list-group-item.list-group-item-action.flex-column.align-items-start{ href: '#' }
+          .d-flex.w-100.justify-content-between
+            %h6.mb-1 $275 &mdash; 6-Month Membership
+          %p This is like getting one free month of membership per year.
+
+        %a#annual.list-group-item.list-group-item-action.flex-column.align-items-start{ href: '#' }
+          .d-flex.w-100.justify-content-between
+            %h6.mb-1 $550 &mdash; 12-month Membership
+          %p It's like getting two free months per year.
+
+        %p.mt-4
+          %strong For new members there is a $20 processing fee charged when you sign up.
+          This makes the first month’s charge $75 for a standard membership, and $295
+          for a 6 month membership. If your first membership signup is for a
+          full year we waive the processing fee!
+
+      .form-group
+        %input.btn.btn-primary{ type: 'submit', value: 'Next' }
+  .col-md-4.offset-md-1
+    .alert.alert-info
+      %h5.alert-heading Important!
+      %p
+        Although we're taking your payment information now, you won't be charged
+        a cent until you've been issued your keyfob and gain access to the building.
+
+
+
+
+:javascript
+  $(function() {
+    // Membership Selector
+    $('#plan-picker .list-group-item').click(function(e) {
+      e.preventDefault();
+      $('#plan-picker .list-group-item').removeClass('list-group-item-primary');
+      $(this).addClass('list-group-item-primary');
+      $('#preferred_membership_plan').val($(this).attr('id'));
+    });
+
+    var stripe = Stripe("#{ENV['STRIPE_PUBLISHABLE_KEY']}");
+    var elements = stripe.elements();
+
+    function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment_form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      form.submit();
+    }
+
+    var style = {
+      base: {
+        // Add your base input styles here. For example:
+        fontSize: '16px',
+        color: "#32325d",
+      }
+    };
+
+    var card = elements.create('card', {style: style});
+    card.mount('#card-element');
+
+    card.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    var form = document.getElementById('payment_form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Inform the customer that there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    });
+  });

@@ -1,0 +1,84 @@
+- content_for(:page_title) do
+  Member Dashboard
+
+.row
+  .col-md-5
+    %h3 Your Profile
+
+    %p
+      This is the information about you that we have in our system.
+    .card.mb-4
+      .card-header
+        %h5 Basic Information
+      .card-body
+        %ul.list-unstyled
+          %li
+            %strong Name:
+            = current_member.name
+          %li
+            %strong Email:
+            = current_member.email
+          %li
+            %strong Username:
+            = current_member.username
+        .text-right
+          %small
+            = link_to 'Update basic information', edit_dashboard_account_path
+            %br
+            = link_to 'Change account password', edit_dashboard_password_path
+
+    .card
+      .card-header
+        %h5 Contact Information
+      .card-body
+        %p
+          %strong Address:
+          %br
+          - current_member.contact_record.address_lines_to_display.each do |line|
+            = line
+            %br
+
+
+        %p
+          %strong Phone:
+          %br
+          = format_phone(current_member.contact_record.phone)
+
+        %p
+          %strong Emergency Contact:
+          %br
+          = current_member.contact_record.emergency_contact_name
+          %br
+          = format_phone(current_member.contact_record.emergency_contact_phone)
+
+        %p.text-right
+          %small= link_to 'Update contact information', edit_dashboard_contact_record_path
+
+  .col-md-5.offset-md-2
+    %h3 Your Membership
+    .card.mb-4
+      .card-header
+        %h5 Membership Plan
+      .card-body
+        %ul.list-unstyled
+          %li
+            %strong Member since:
+            August 7, 2013
+          %li
+            %strong Paid through:
+            September 7, 2019
+        %p.text-right
+          %small
+            = link_to 'Change membership plan'
+            %br
+            = link_to 'Update payment information'
+
+    .card
+      .card-header
+        %h5 Endorsements
+      .card-body
+        %ul
+          - current_member.capabilities.find_each do |capability|
+            %li= "You can #{capability.name}."
+        %p.text-right
+          %small= link_to 'About endorsements'

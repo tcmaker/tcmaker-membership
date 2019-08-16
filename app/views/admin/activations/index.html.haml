@@ -1,0 +1,20 @@
+%h2 Pending Activations
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Phone
+      %th Plan
+  %tbody
+    - @activations.each do |activation|
+      %tr
+        %td
+          = link_to activation.name, "/admin/activations/#{activation.id}"
+        %td
+          = activation.member.email
+        %td
+          = activation.member.contact_record.phone
+        %td
+          = activation.plan

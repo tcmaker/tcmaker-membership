@@ -1,0 +1,76 @@
+- content_for :page_title do
+  Contact Information
+%p
+  Next, we'll need your contact information, so that we'll be able to get in
+  touch with you. And we'll need an emergency contact, just in case.
+
+- if @contact_record.errors.any?
+  .alert.alert-danger
+    %h5 Error!
+    %ul
+      - @contact_record.errors.full_messages.each do |msg|
+        %li= msg
+
+= form_for(@contact_record, url: signup_contact_record_path, method: :post) do |f|
+  %h4 Home Address
+  .form-group
+    = f.label :street_address, 'Street Address'
+    = f.text_field :street_address, class: 'form-control'
+  .form-group.d-none#supplemental_1
+    = f.label :supplemental_address_1, 'Street Address, Line 2', class: 'sr-only'
+    = f.text_field :supplemental_address_2, class: 'form-control'
+  .form-group.d-none#supplemental_2
+    = f.label :supplemental_address_2, 'Street Address, Line 2', class: 'sr-only'
+    = f.text_field :supplemental_address_2, class: 'form-control'
+  .form-group.d-none#supplemental_3
+    = f.label :supplemental_address_1, 'Street Address, Line 3', class: 'sr-only'
+    = f.text_field :supplemental_address_3, class: 'form-control'
+  #more-fields.text-right
+    %small= link_to 'add another line',  '#', id: 'add-line-control'
+  .form-row
+    .form-group.col-md-7
+      = f.label :city
+      = f.text_field :city, class: 'form-control'
+    .form-group.col-md-5
+      = f.label :state_abbreviation, 'State'
+      = f.select :state_abbreviation, StateService.states_for_dropdown, {}, { class: 'custom-select' }
+  .form-row
+    .form-group.col-md-7
+      = f.label :postal_code
+      = f.text_field :postal_code, class: 'form-control'
+
+  %h4 Phone
+  .form-group
+    = f.label :phone
+    = f.phone_field :phone, class: 'form-control'
+    = f.check_box :phone_can_receive_sms
+    = f.label :phone_can_receive_sms, 'This phone can receive text messages'
+
+  %h4 Emergency Contact
+  .form-group
+    = f.label :emergency_contact_name, 'Name'
+    = f.text_field :emergency_contact_name, class: 'form-control'
+  .form-group
+    = f.label :emergency_contact_phone, 'Phone'
+    = f.phone_field :emergency_contact_phone, class: 'form-control'
+
+  .form-group
+    = f.submit 'Next', class: 'btn btn-primary'
+
+:javascript
+  $(function() {
+    var count = 1;
+
+    $('#add-line-control').click(function(e) {
+      e.preventDefault();
+      $('#supplemental_' + count).removeClass('d-none');
+
+      if (count === 3) {
+        $('#add-line-control').remove();
+        return;
+      }
+
+      count++;
+    });
+
+  });

@@ -1,0 +1,32 @@
+%nav.navbar.navbar-dark.fixed-top.bg-dark.navbar-expand-lg
+  .navbar-brand
+    = link_to('/dashboard') do
+      = image_tag('logo-white-text.svg', class: "d-inline-block align-top", alt: "Twin Cities Maker")
+  %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#navbarSupportedContent' }, aria: { controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation' } }
+    %span.navbar-toggler-icon
+
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav
+      %li.nav-item
+        = link_to 'Dashboard', '/dashboard', class: 'nav-link'
+      %li.nav-item
+        = link_to 'Admin', '/admin', class: 'nav-link'
+      %li.nav-item
+        = link_to 'Reports', '/reports', class: 'nav-link'
+
+      -# %li.nav-item.active
+      -#   = link_to('#', class: 'nav-link') do
+      -#     Active
+      -#     %span.sr-only (current)
+      -# %li.nav-item.disabled
+      -#   = link_to 'Disabled', '#', class: 'nav-link'
+
+    %ul.navbar-nav.ml-auto
+      %li.nav-item.dropdown
+        %a#navbarDropdown.nav-link.dropdown-toggle{ href: '#', role: 'button', data: { toggle: 'dropdown' }, aria: { toggle: 'dropdown', haspopup: true, expanded: false } }
+          = current_member.name
+        .dropdown-menu{ 'aria-labelledby': 'navbarDropdown' }
+          = link_to 'Edit Basic Info', edit_dashboard_account_path, class: 'dropdown-item'
+          = link_to 'Edit Contact Info', edit_dashboard_contact_record_path, class: 'dropdown-item'
+          .dropdown-divider
+          = link_to('Logout', '/auth/logout', class: 'dropdown-item')

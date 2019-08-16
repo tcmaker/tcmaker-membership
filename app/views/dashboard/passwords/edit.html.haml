@@ -1,0 +1,25 @@
+- content_for :page_title do
+  Change Your Account Password
+
+= form_for(@password, url: dashboard_password_path, method: :patch) do |f|
+  - if @password.errors.any?
+    .alert.alert-danger
+      %h5 Error!
+      %ul
+        - @password.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+    %small.form-text.text-muted
+      Passwords must contain a capital letter, a lowercase letter, a number,
+      and one of these special characters:
+      %code !@#%^&amp;*$
+
+  .form-group
+    = f.label :password_confirmation, 'Confirm your password'
+    = f.password_field :password_confirmation, class: 'form-control'
+
+  .form-group
+    = f.submit 'Update', class: 'btn btn-primary'

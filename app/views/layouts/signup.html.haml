@@ -1,0 +1,36 @@
+!!! 5
+%html
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+
+    %title Twin Cities Maker
+  %body
+    %header.unauthenticated
+      .container-fluid.mt-4
+        .row
+          .col-md-4
+            = image_tag('logo-red-text.svg')
+
+    .container-fluid.mt-4
+      .row
+        .col-md-8.offset-md-2
+          %h3 New Member Form
+          %p
+            We're excited to have you as a member! We just need to as you a
+            few quick questions to get you signed up.
+          .card
+            .card-header
+              %h4
+                = yield :page_title
+            .card-body
+              - # TODO: Flash messages
+              - flash.each do |type, message|
+                %p= message
+              = yield
+
+  %script{ src: "https://js.stripe.com/v3/" }
