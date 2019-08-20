@@ -40,6 +40,17 @@ module Admin
     def update
       @activation = Activation.new(activation_params)
       progress = Signup::Progress.find(params['id'])
+
+      # Setup fee for monthly and biannual memberships
+      if ['monthly', 'biannual'].include? @activation.plan
+        Stripe::InvoiceItem.create({
+          customer: progress.member.stripe_identifier,
+          amount: 2000, # price in pennies
+          currency: 'usd',
+          description: 'One-time setup fee',
+        })
+      end
+
       plans = Stripe::Plan.list.map {|i| [i.nickname, i.id]}.to_h
       stripe_api_payload = {
         customer: progress.member.stripe_identifier,
