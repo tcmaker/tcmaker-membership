@@ -8,7 +8,7 @@
       - @contact_record.errors.full_messages.each do |msg|
         %li= msg
 
-= form_for(@contact_record, url: dashboard_contact_record_path, method: :post) do |f|
+= form_for(@contact_record, url: dashboard_contact_record_path, method: :patch) do |f|
   %h4 Home Address
   .form-group
     = f.label :street_address, 'Street Address'
@@ -52,7 +52,7 @@
     = f.phone_field :emergency_contact_phone, class: 'form-control'
 
   .form-group
-    = f.submit 'Next', class: 'btn btn-primary'
+    = f.submit 'Update', class: 'btn btn-primary'
 
 :javascript
   $(function() {

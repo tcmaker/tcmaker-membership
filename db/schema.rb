@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_014920) do
+ActiveRecord::Schema.define(version: 2019_08_20_111813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 2019_08_20_014920) do
     t.string "crm_identifier"
     t.string "keyfob_code"
     t.boolean "accepted_liability_waiver"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.date "membership_started_at"
+    t.date "membership_expires_at"
+    t.string "stripe_subscription_identifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "signup_progresses", force: :cascade do |t|

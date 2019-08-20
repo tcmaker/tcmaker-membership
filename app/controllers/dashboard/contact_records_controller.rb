@@ -6,9 +6,10 @@ module Dashboard
     end
 
     def update
-      @contact_record = ContactRecord.find(current_member.contact_record)
+      @contact_record = ContactRecord.find(current_member.contact_record.id)
 
       if @contact_record.update(contact_record_params)
+        flash['success'] = 'Contact info updated'
         redirect_to '/dashboard'
       else
         render 'edit'
