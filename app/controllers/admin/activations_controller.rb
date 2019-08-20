@@ -50,7 +50,7 @@ module Admin
       }
       result = Stripe::Subscription.create(stripe_api_payload)
 
-      member.update!(keyfob_code: @activation.keyfob_code)
+      Signup::Progress.find(params['id']).member.update!(keyfob_code: @activation.keyfob_code)
 
       redirect_to admin_activations_path
     end
