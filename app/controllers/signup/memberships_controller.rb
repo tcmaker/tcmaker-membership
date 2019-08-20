@@ -3,7 +3,7 @@ module Signup
     content_security_policy false
 
     def new
-      @membership = Membership.new
+      @membership = FakeMembership.new
     end
 
     def create
