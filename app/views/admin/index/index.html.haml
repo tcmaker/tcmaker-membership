@@ -1,0 +1,13 @@
+- content_for(:page_title) do
+  Admin Console
+
+.row
+  .col-md-6
+    .card
+      .card-header
+        %h5 Pending Activations
+      .card-body
+        %ul
+          - @activations.each do |a|
+            %li
+              = link_to a.member.name, admin_activation_path(a)

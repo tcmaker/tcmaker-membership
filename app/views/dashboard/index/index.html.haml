@@ -77,8 +77,15 @@
       .card-header
         %h5 Endorsements
       .card-body
-        %ul
-          - current_member.capabilities.find_each do |capability|
-            %li= "You can #{capability.name}."
+        -# - current_member.capability.find_each do |capability|
+        - Capability.all.find_each do |capability|
+          %span.badge.badge-secondary{ 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => capability.description }
+            = capability.name
+
         %p.text-right
           %small= link_to 'About endorsements'
+
+:javascript
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  })
