@@ -28,6 +28,7 @@ class Member < ApplicationRecord
     on: :create
   # validates :password_confirmation, presence: true
 
+  before_save :update_door_controller, if: :will_save_change_to_keyfob_code?
   before_create :create_external_accounts
   after_update :update_external_accounts
 
@@ -53,5 +54,9 @@ class Member < ApplicationRecord
       name: "#{self.first_name} #{self.last_name}",
       email: self.email
     })
+  end
+
+  def update_door_controller
+    DoorService.activate(self.keyfob_code)
   end
 end
