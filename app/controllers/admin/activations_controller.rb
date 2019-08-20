@@ -39,9 +39,10 @@ module Admin
 
     def update
       @activation = Activation.new(activation_params)
+      progress = Signup::Progress.find(params['id'])
       plans = Stripe::Plan.list.map {|i| [i.nickname, i.id]}.to_h
       stripe_api_payload = {
-        customer: Signup::Progress.find(params['id']).member.stripe_identifier,
+        customer: progress.member.stripe_identifier,
         items: [
           {
             plan: plans[@activation.plan],
@@ -50,8 +51,11 @@ module Admin
       }
       result = Stripe::Subscription.create(stripe_api_payload)
 
-      member.update!(keyfob_code: @activation.keyfob_code)
+      progress.update!(membership_activation_completed: true)
+      progress.member.update!(keyfob_code: @activation.keyfob_code)
 
+
+      flash[:success] = 'Member successfully activated.'
       redirect_to admin_activations_path
     end
 
