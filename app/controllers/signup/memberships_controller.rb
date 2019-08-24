@@ -3,18 +3,14 @@ module Signup
     content_security_policy false
 
     def new
-      @membership = FakeMembership.new
+      @preferred_plan = 'monthly'
     end
 
     def create
-      unless params.key? :stripeToken
-        flash[:error] = 'Incorrect credit card entry. Please try again.'
-        render 'new'
-        return
-      end
+      @preferred_plan = params['preferred_plan']
 
       unless params.key? :stripeToken
-        flash['error'] = 'You must enter payment information'
+        flash[:error] = 'Incorrect credit card entry. Please try again.'
         render 'new'
         return
       end
@@ -25,9 +21,13 @@ module Signup
         return
       end
 
-      customer = Stripe::Customer.retrieve(current_member.stripe_identifier)
-      customer.source = params['stripeToken']
-      customer.save
+      begin
+        customer = Stripe::Customer.retrieve(current_member.stripe_identifier)
+        customer.source = params['stripeToken']
+        customer.save
+      rescue
+        flash[:error] = 'Incorrect credit card entry. Please try again.'
+      end
 
       progress.update!(payment_info_completed: true, preferred_plan: params['preferred_plan'])
       redirect_to new_signup_liability_waiver_path

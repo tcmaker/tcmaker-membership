@@ -1,0 +1,80 @@
+- content_for(:page_title) { 'Payment Information' }
+
+.card.mb-4
+  .card-header
+    %h5 Current Payment Info
+  .card-body
+    %p
+      %strong
+        = @current_payment.brand
+        ending in
+        = @current_payment.last4
+      %br
+      %small.text-muted
+        = "(expires #{@current_payment.exp_month}/#{@current_payment.exp_year})"
+
+%form#payment-form{ action: dashboard_payment_path, method: 'POST' }
+  = hidden_field_tag :authenticity_token, form_authenticity_token
+  .card.mb-4
+    .card-header
+      %h5 Update Payment Card
+    .card-body
+      #card-element
+      #card-errors{ role: "alert" }
+  %input.btn.btn-primary{ type: 'submit', value: 'Update' }
+
+# TODO: refactor inline Javascript into external file
+:javascript
+  $(function() {
+    var stripe = Stripe("#{ENV['STRIPE_PUBLISHABLE_KEY']}");
+    var elements = stripe.elements();
+
+    var style = {
+      base: {
+        // Add your base input styles here. For example:
+        fontSize: '16px',
+        color: "#32325d",
+      }
+    };
+
+    var card = elements.create('card', {style: style});
+    card.mount('#card-element');
+
+    card.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripe_token');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      form.submit();
+    }
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Inform the customer that there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    });
+  });
