@@ -23,8 +23,9 @@
       #card-errors{ role: "alert" }
   %input.btn.btn-primary{ type: 'submit', value: 'Update' }
 
-# TODO: refactor inline Javascript into external file
 :javascript
+  // TODO: refactor inline Javascript into external file
+  
   $(function() {
     var stripe = Stripe("#{ENV['STRIPE_PUBLISHABLE_KEY']}");
     var elements = stripe.elements();
