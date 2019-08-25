@@ -5,13 +5,6 @@
   Monthly memberships are $55, and we have 6-month and 12-month plans
   that will save you money in the long run.
 
--# - if @membership.errors.any?
--#   .alert.alert-danger
--#     %h5 Error!
--#     %ul
--#       - @membership.errors.full_messages.each do |msg|
--#         %li= msg
-
 .row
   .col-md-7
     %form#payment_form{ action: signup_membership_path, method: 'POST' }
@@ -24,12 +17,12 @@
 
       %h5 Dues
 
-      %input#preferred_membership_plan{ type: 'hidden', name: 'preferred_plan', value: 'monthly' }
+      %input#preferred_membership_plan{ type: 'hidden', name: 'preferred_plan', value: @preferred_plan }
       #plan-picker.list-group.mb-4
         %a#monthly.list-group-item.list-group-item-action.flex-column.align-items-start.list-group-item-primary{ href: '#' }
           .d-flex.w-100.justify-content-between
             %h6.mb-1 $55 &mdash; Monthly Membership
-          %p This grants you 24/7 access to our workshop and all the wonders held within.
+          %p This grants you 24/7 access to our workshop and the wonders held within.
 
         %a#biannual.list-group-item.list-group-item-action.flex-column.align-items-start{ href: '#' }
           .d-flex.w-100.justify-content-between

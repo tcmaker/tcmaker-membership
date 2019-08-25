@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resource :account
     resource :contact_record
     resource :membership
+    resource :payment
     resource :password
   end
 
