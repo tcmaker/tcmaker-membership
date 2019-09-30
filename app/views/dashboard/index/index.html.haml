@@ -63,10 +63,10 @@
         %ul.list-unstyled
           %li
             %strong Member since:
-            August 7, 2013
+            = Time.at(@subscription.start_date).strftime("%B %e, %Y")
           %li
             %strong Paid through:
-            September 7, 2019
+            = Time.at(@subscription.current_period_end).strftime("%B %e, %Y")
         %p.text-right
           %small
             = link_to 'Change membership plan', edit_dashboard_membership_path
