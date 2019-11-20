@@ -1,0 +1,35 @@
+{% extends 'membership/index.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Households{% endblock %}
+{% block heading %}Households{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Households" "membership:household_list" %}
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Contact</th>
+      <th>Valid Through</th>
+      <th>Dues Plan</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for household in object_list %}
+      <tr>
+        <td><a href="{% url 'membership:household_detail' pk=household.id %}">{{ household }}</a></td>
+        <td><code>{{ household.status }}</code></td>
+        <td>{{ household.contact }}</td>
+        <td>{{ household.valid_through }}</td>
+        <td>{{ household.dues_plan }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

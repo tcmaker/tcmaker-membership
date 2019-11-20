@@ -1,0 +1,40 @@
+{% extends 'membership/discount_list.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ discount }}{% endblock %}
+{% block heading %}{{ discount }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb discount "membership:discount_detail" %}
+{% endblock %}
+
+{% block content %}
+<p class="small text-muted">UUID: <code>{{ discount.id }}</code></p>
+<hr>
+
+<h4>Information</h4>
+<dl>
+  <dt>Description</dt><dd>{{ discount.description }}</dd>
+  <dt>Allows Family Memberships</dt><dd>{{ discount.allow_family_memberships | yesno }}</dd>
+  <dt>Stripe Coupon Identifier</dt><dd><code>{{ object.stripe_coupon_identifier }}</code></dd>
+</dl>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Notes</h4>
+    {{ discount.notes | escape | linebreaks }}
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <a href="{% url 'membership:discount_list' %}" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

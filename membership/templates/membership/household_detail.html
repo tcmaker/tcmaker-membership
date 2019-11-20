@@ -1,0 +1,65 @@
+{% extends 'membership/household_list.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ household }}{% endblock %}
+{% block heading %}{{ household }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb household "membership:household_detail" %}
+{% endblock %}
+
+{% block content %}
+
+<p class="small text-muted">UUID: <code>{{ household.id }}</code></p>
+<hr>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>Household Information</h4>
+    <dl>
+      <dt>Contact</dt><dd><a href="{% url 'membership:person_detail' pk=household.contact.id %}">{{ household.contact }}</a></dd>
+      <dt>Dues Plan</dt><dd><a href="{% url 'membership:dues_plan_detail' pk=household.dues_plan.id %}">{{ household.dues_plan }}</a></dd>
+      <dt>Valid Through</dt><dd>{{ household.valid_through }}</dd>
+      <dt>Discount</dt>
+      {% if household.discount %}
+        <dd><a href="{% url 'membership:discount_detail' pk=household.discount.id %}">{{ household.discount }}</a></dd>
+      {% else %}
+        <dd>None</dd>
+      {% endif %}
+    </dl>
+
+    <h4>Technical Information</h4>
+    <p class="small text-muted">You'll likely never need to mess with this.</p>
+    <dl>
+      <dt>Stripe Customer Identifier</dt><dd>{{ household.external_customer_identifier }}</dd>
+      <dt>Stripe Subscription Identifier</dt><dd>{{ household.external_subscription_identifier }}</dd>
+    </dl>
+  </div>
+  <div class="col-md-6">
+    <h4>Members</h4>
+    <ul>
+    {% for person in household.person_set.all %}
+      <li><a href="{% url 'membership:person_detail' pk=person.id %}">{{ person }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h4>Notes</h4>
+    {{ household.notes | escape | linebreaks }}
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <a href="" class="btn btn-primary">Edit</a>
+      &nbsp;&nbsp;&nbsp;
+      <a href="" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

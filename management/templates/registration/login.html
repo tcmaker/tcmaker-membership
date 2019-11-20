@@ -1,0 +1,40 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href= "{% static 'css/dashboard.css' %}"> -->
+
+  <title>{% block title %}{% endblock %} &mdash; Twin Cities Maker</title>
+
+  <style>
+    .auth-container {
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container auth-container">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-header">Sign In</div>
+        <div class="card-body">
+          <p>You need to sign in before continuing</p>
+          <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group">
+              <input type="submit" value="Sign In" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

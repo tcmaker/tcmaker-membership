@@ -1,0 +1,60 @@
+{% extends 'membership/studentteam_list.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ object }}{% endblock %}
+{% block heading %}{{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb object 'membership:studentteam_detail' %}
+{% endblock %}
+
+{% block content %}
+
+<p class="small text-muted">UUID: <code>{{ object.id }}</code></p>
+<hr>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>Information</h4>
+    <dl>
+      <dt>Organization</dt><dd>{{ object.organization }}</dd>
+      <dt>Contact</dt><dd><a href="{% url 'membership:person_detail' pk=object.contact.id %}">{{ object.contact }}</a></dd>
+      <dt>Board Authorization Date:</dt><dd>{{ object.authorized_at }}</dd>
+      <dt>Valid Through</dt><dd>{{ object.valid_through }}</dd>
+      <dt>Status</dt>
+      {% if object.status == 'active' %}
+        <dd><span class="badge badge-primary">{{ object.status }}</span></dd>
+      {% else %}
+        <dd><span class="badge badge-secondary">{{ object.status }}</span></dd>
+      {% endif %}
+    </dl>
+
+  </div>
+  <div class="col-md-6">
+    <h4>Members</h4>
+    <ul>
+    {% for person in object.person_set.all %}
+      <li><a href="{% url 'membership:person_detail' pk=person.id %}">{{ person }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h4>Notes</h4>
+    {{ object.notes | escape | linebreaks }}
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <a href="" class="btn btn-primary">Edit</a>
+      &nbsp;&nbsp;&nbsp;
+      <a href="{% url 'membership:student_team_list' %}" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

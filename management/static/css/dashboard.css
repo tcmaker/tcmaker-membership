@@ -1,0 +1,22 @@
+/** Dashboard Styles **/
+
+body {
+  margin-top: 3.5rem;
+}
+
+.navbar-brand img {
+  height: 1.75rem;
+}
+
+// Signup Form
+.signup-container {
+  margin-top: 5rem;
+
+  header {
+    text-align: right;
+    margin-top: 0.5em;
+    img {
+      height: 2em;
+    }
+  }
+}

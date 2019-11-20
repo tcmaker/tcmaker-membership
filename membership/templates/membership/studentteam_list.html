@@ -1,0 +1,37 @@
+{% extends 'membership/index.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Student Teams{% endblock %}
+{% block heading %}Student Teams{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb 'Student Teams' 'membership:studentteam_list' %}
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Organization</th>
+      <th>Contact</th>
+      <th>Status</th>
+      <th>Valid Through</th>
+      <th>Authorized At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for team in object_list %}
+      <tr>
+        <td><a href="{% url 'membership:student_team_detail' pk=team.id %}">{{ team }}</a></td>
+        <td>{{ team.organization }}</td>
+        <td>{{ team.contact }}</td>
+        <td><code>{{ team.status }}</code></td>
+        <td>{{ team.valid_through }}</td>
+        <td>{{ team.authorized_at }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

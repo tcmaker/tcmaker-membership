@@ -1,0 +1,22 @@
+{% extends 'management/base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Membership{% endblock %}
+{% block heading %}Membership{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb 'Membership' 'membership:index' %}
+{% endblock %}
+
+{% block content %}
+<hr>
+<ul>
+  <li><a href="{% url 'membership:person_list' %}">People</a></li>
+  <li><a href="{% url 'membership:household_list' %}">Households</a></li>
+  <li><a href="{% url 'membership:student_team_list' %}">Student Teams</a></li>
+  <li><a href="{% url 'membership:dues_plan_list' %}">Dues Plans</a></li>
+  <li><a href="{% url 'membership:discount_list' %}">Discounts</a></li>
+</ul>
+
+{% endblock %}

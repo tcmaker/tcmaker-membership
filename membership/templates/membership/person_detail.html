@@ -1,0 +1,67 @@
+{% extends 'membership/person_list.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ person }}{% endblock %}
+{% block heading %}{{ person }}{% endblock %}
+
+{% block content %}
+
+<p class="small text-muted">UUID: <code>{{ person.id }}</code></p>
+<hr>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>Contact Information</h4>
+    <p>
+      {{ person.address_lines | join:"<br>" }}<br>
+      <strong>Phone:</strong> {{ person.phone }}<br>
+      <strong>Email:</strong> {{ person.email }}
+    </p>
+  </div>
+  <div class="col-md-6">
+    <h4>Membership Information</h4>
+    <dl>
+      {% if person.member_since %}
+        <dt>Date Joined</dt><dd>{{ person.member_since }}</dd>
+      {% endif %}
+      {% if person.household %}
+        <dt>Household</dt><dd><a href="{%url 'membership:household_detail' pk=person.household.id %}">{{ person.household }}</a><dd>
+        <dt>Valid Through</dt><dd>{{person.household.valid_through }}</dd>
+      {% endif %}
+      {% if person.student_team %}
+        <dt>Student Team:</dt>
+        <dd>
+          <a href="{%url 'membership:student_team_detail' pk=person.student_team.id %}">{{ person.student_team }}</a>
+          <small class="text-muted">({{ person.student_team.organization }})</small>
+        </dd>
+        <dt>Valid Through</dt><dd>{{person.student_team.valid_through }}</dd>
+      {% endif %}
+      <dt>Membership Status</dt>
+      {% if person.membership_status == 'active' %}
+        <dd><span class="badge badge-primary">{{ object.membership_status }}</span></dd>
+      {% else %}
+        <dd><span class="badge badge-secondary">{{ object.membership_status }}</span></dd>
+      {% endif %}
+    </dl>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Notes</h4>
+    {{ person.notes | escape | linebreaks }}
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <a href="" class="btn btn-primary">Edit</a>
+      &nbsp;&nbsp;&nbsp;
+      <a href="" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

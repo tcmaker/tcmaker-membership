@@ -1,0 +1,31 @@
+{% extends 'membership/index.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Discounts{% endblock %}
+{% block heading %}Discounts{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Discounts" "membership:discount_list" %}
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Allow Family Memberships?</th>
+      <th>Stripe Identifier</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for discount in object_list %}
+      <tr>
+        <td><a href="{% url 'membership:discount_detail' pk=discount.id %}">{{ discount }}</a></td>
+        <td>{{ discount.allow_family_memberships }}</td>
+        <td><code>{{ discount.stripe_coupon_identifier }}</code></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

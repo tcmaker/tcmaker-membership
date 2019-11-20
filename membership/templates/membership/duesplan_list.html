@@ -1,0 +1,33 @@
+{% extends 'membership/index.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Dues Plans{% endblock %}
+{% block heading %}Dues Plans{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb 'Dues Plans' 'membership:dues_plan_list.html' %}
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Setup Fee?</th>
+      <th>Stripe Identifier</th>
+      <th>Sort Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for plan in object_list %}
+      <tr>
+        <td><a href="{% url 'membership:dues_plan_detail' pk=plan.id %}">{{ plan }}</a></td>
+        <td>{{ plan.requires_setup_fee }}</td>
+        <td><code>{{ plan.stripe_plan_identifier }}</code></td>
+        <td><code>{{ plan.sort_priority }}</code></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

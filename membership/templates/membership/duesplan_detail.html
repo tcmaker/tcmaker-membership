@@ -1,0 +1,42 @@
+{% extends 'membership/duesplan_list.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ object }}{% endblock %}
+{% block heading %}{{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb object 'membership:dues_plan_detail' %}
+{% endblock %}
+
+
+{% block content %}
+
+<p class="small text-muted">UUID: <code>{{ object.id }}</code></p>
+<hr>
+
+<h4>Information</h4>
+<dl>
+  <dt>Requires Setup Fee</dt><dd>{{ object.requires_setup_fee | yesno }}</dd>
+  <dt>Stripe Plan Identifier</dt><dd><code>{{ object.stripe_plan_identifier }}</code></dd>
+  <dt>Sort Priority</dt><dd><code>{{ object.sort_priority }}</code></dd>
+</dl>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Notes</h4>
+    {{ object.notes | escape | linebreaks }}
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <a href="{% url 'membership:dues_plan_list' %}" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

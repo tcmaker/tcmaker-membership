@@ -1,0 +1,30 @@
+{% extends 'membership/index.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}People{% endblock %}
+{% block heading %}People{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Last Name</th>
+      <th>First Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for person in object_list %}
+      <tr>
+        <td><a href="{% url 'membership:person_detail' pk=person.id %}">{{ person }}</a></td>
+        <td>{{ person.family_name }}</td>
+        <td>{{ person.given_name }}</td>
+        <td>{{ person.email }}</td>
+        <td>{{ person.phone_number }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
