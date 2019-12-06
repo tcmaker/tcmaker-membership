@@ -934,7 +934,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.7)
     rack-oauth2 (1.10.0)
       activesupport
@@ -1099,7 +1099,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   phonelib
   pry-rails
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.3)
   rspec-rails (~> 3.8)
   rubocop

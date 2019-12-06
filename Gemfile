@@ -7,7 +7,7 @@ ruby '2.6.3'
 
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'pry-rails'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.3'
 
 gem 'bootstrap', '~> 4.3.1'
