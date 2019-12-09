@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
     # API Stuff
     'rest_framework',
+    'rest_framework.authtoken',
 
     # Mine
     'membership.apps.MembershipConfig',
@@ -150,7 +151,11 @@ if len(MANAGERS) > 1 and MANAGERS[-1] == '':
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'management.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 }
 
 #### Heroku ####
