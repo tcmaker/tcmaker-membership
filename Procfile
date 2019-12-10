@@ -1,1 +1,1 @@
-web: gunicorn clubhouse.wsgi
+web: gunicorn members.wsgi
