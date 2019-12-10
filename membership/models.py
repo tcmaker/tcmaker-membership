@@ -153,7 +153,7 @@ MEMBERSHIP_STATUSES = [
 class MembershipEntity(BaseEntity):
     name = models.CharField('Name', max_length=100, help_text='e.g. Team SkyNet')
     valid_through = models.DateField()
-    contact = models.ForeignKey('Person', on_delete=models.CASCADE, related_name='administered_%(class)s')
+    contact = models.ForeignKey('Person', on_delete=models.CASCADE, related_name='administered_%(class)s_set')
     valid_through = models.DateTimeField()
     status = models.CharField('Status', choices=MEMBERSHIP_STATUSES, default='incomplete', max_length=50)
 
@@ -179,8 +179,8 @@ class Household(MembershipEntity):
     dues_plan = models.ForeignKey('DuesPlan', on_delete=models.SET_NULL, blank=True, null=True)
     discount = models.ForeignKey('Discount', on_delete=models.SET_NULL, blank=True, null=True)
     auto_renew = models.BooleanField(default=False)
-    external_customer_identifier = models.CharField(max_length=100)
-    external_subscription_identifier = models.CharField(max_length=100)
+    external_customer_identifier = models.CharField(max_length=100, blank=True, null=True)
+    external_subscription_identifier = models.CharField(max_length=100, blank=True, null=True)
 
     # This tells us which fields have been modified so custom save methods
     # and signal handlers can do less work.

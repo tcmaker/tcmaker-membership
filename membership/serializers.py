@@ -1,15 +1,6 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 from .models import Person, Household, Discount, DuesPlan, StudentTeam
 
-class PersonSerializer(HyperlinkedModelSerializer):
-    class Meta:
-        model = Person
-        exclude = ['notes']
-        read_only_fields = [
-            'created_at',
-            'updated_at',
-            'keyfob_code',
-        ]
 
 class HouseholdSerializer(HyperlinkedModelSerializer):
     class Meta:
@@ -28,6 +19,17 @@ class StudentTeamSerializer(HyperlinkedModelSerializer):
         read_only_fields = [
             'created_at',
             'updated_at',
+        ]
+
+class PersonSerializer(HyperlinkedModelSerializer):
+    administered_households = HouseholdSerializer(many=True, read_only=True, source='administered_household_set')
+    administered_student_teams = StudentTeamSerializer(many=True, read_only=True, source='administered_studentteam_set')
+    class Meta:
+        model = Person
+        exclude = ['notes']
+        read_only_fields = [
+            'created_at',
+            'updated_at'
         ]
 
 class DuesPlanSerializer(HyperlinkedModelSerializer):
