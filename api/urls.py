@@ -6,7 +6,6 @@ router = DefaultRouter()
 router.register(r'persons', views.PersonViewSet)
 router.register(r'households', views.HouseholdViewSet)
 router.register(r'student_teams', views.StudentTeamViewSet)
-router.register(r'discounts', views.DiscountViewSet)
 router.register(r'dues_plans', views.DuesPlanViewSet)
 
 urlpatterns = [

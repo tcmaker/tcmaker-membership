@@ -3,21 +3,17 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-factory-boy = "*"
-faker = "*"
-
 [packages]
-django-phonenumber-field = "==3.0.1"
-phonenumbers = "==8.10.21"
-django-localflavor = "==2.2"
-django-model-utils = "==3.2.0"
-psycopg2 = "==2.8.3"
-django-crispy-forms = "==1.8.0"
-stripe = "==2.37.2"
-django-heroku = "==0.3.1"
-gunicorn = "==19.9.0"
-djangorestframework = "==3.10.3"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+django-localflavor = "*"
+django-model-utils = "*"
+psycopg2 = "*"
+django-crispy-forms = "*"
+stripe = "*"
+django-heroku = "*"
+gunicorn = "*"
+djangorestframework = "*"
 django-filter = '*'
 docutils = "*"
 django-tables2 = "*"
@@ -25,4 +21,4 @@ markdown = "*"
 django-bootstrap-breadcrumbs = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6.9"

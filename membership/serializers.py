@@ -1,5 +1,5 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
-from .models import Person, Household, Discount, DuesPlan, StudentTeam
+from .models import Person, Household, DuesPlan, StudentTeam
 
 
 class HouseholdSerializer(HyperlinkedModelSerializer):
@@ -41,11 +41,3 @@ class DuesPlanSerializer(HyperlinkedModelSerializer):
             'updated_at',
         ]
 
-class DiscountSerializer(HyperlinkedModelSerializer):
-    class Meta:
-        model = Discount
-        exclude = ['notes']
-        read_only_fields = [
-            'created_at',
-            'updated_at',
-        ]

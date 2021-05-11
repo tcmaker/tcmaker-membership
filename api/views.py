@@ -10,11 +10,6 @@ class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PersonSerializer
     filterset_fields = ['given_name', 'family_name', 'email', 'keyfob_code']
 
-class DiscountViewSet(viewsets.ReadOnlyModelViewSet):
-    permission_classes = [IsAdminUser]
-    queryset = models.Discount.objects.all()
-    serializer_class = serializers.DiscountSerializer
-
 class HouseholdViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     queryset = models.Household.objects.all()

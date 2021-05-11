@@ -114,25 +114,14 @@ class Person(BaseEntity):
         # we're in the clear
         super().save(*args, **kwargs)
 
-class Discount(BaseEntity):
-    stripe_coupon_identifier = models.CharField(max_length=100)
-    name = models.CharField(max_length=30)
-    description = models.TextField(help_text="Who qualifies for this discount, and what are its terms?")
-    allow_family_memberships = models.BooleanField('Allow family memberships?', default=False)
-
-    # This tells us which fields have been modified so custom save methods
-    # and signal handlers can do less work.
-    tracker = FieldTracker()
-
-    def __str__(self):
-        return self.name
-
 class DuesPlan(BaseEntity):
     stripe_plan_identifier = models.CharField(max_length=100, help_text="Don't change this.")
     name = models.CharField(max_length=30, help_text='This text will appear in member-facing forms, so pick clear and descriptive.')
     requires_setup_fee = models.BooleanField(default=True)
     # requires_staff_approval = models.BooleanField(default=True, help_text='Student discounts, staff discounts, etc.')
     sort_priority = models.IntegerField(default=100)
+
+    allow_adhoc_prices = models.BooleanField('Allow ad-hoc prices', default=False, help_text="Allow members who use this Dues Plan to choose how much they wish to pay, enabling community-supported memberships.")
 
     # This tells us which fields have been modified so custom save methods
     # and signal handlers can do less work.
@@ -177,7 +166,6 @@ class StudentTeam(MembershipEntity):
 MAXIMUM_HOUSEHOLD_MEMBERS = 2
 class Household(MembershipEntity):
     dues_plan = models.ForeignKey('DuesPlan', on_delete=models.SET_NULL, blank=True, null=True)
-    discount = models.ForeignKey('Discount', on_delete=models.SET_NULL, blank=True, null=True)
     auto_renew = models.BooleanField(default=False)
     external_customer_identifier = models.CharField(max_length=100, blank=True, null=True)
     external_subscription_identifier = models.CharField(max_length=100, blank=True, null=True)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Person, Household, StudentTeam, Discount, DuesPlan
+from .models import Person, Household, StudentTeam, DuesPlan
 
 def index(request):
     return render(request, 'membership/index.html', {})
@@ -28,13 +28,6 @@ class StudentTeamListView(LoginRequiredMixin, ListView):
 
 class StudentTeamDetailView(LoginRequiredMixin, DetailView):
     model = StudentTeam
-
-class DiscountListView(LoginRequiredMixin, ListView):
-    model = Discount
-    paginate_by = ITEMS_PER_PAGE
-
-class DiscountDetailView(LoginRequiredMixin, DetailView):
-    model = Discount
 
 class DuesPlanListView(ListView):
     model = DuesPlan

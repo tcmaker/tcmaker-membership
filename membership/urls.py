@@ -19,11 +19,6 @@ urlpatterns = [
     # path('student-teams/create/', views.StudentTeamCreateView.as_view(), name="student_team_create"),
     path('student-teams/<pk>/', views.StudentTeamDetailView.as_view(), name="student_team_detail"),
 
-    # We don't allow editing these through the normal interface. You have to
-    # break the glass and use the admin panel.
-    path('discounts/', views.DiscountListView.as_view(), name="discount_list"),
-    path('discounts/<pk>/', views.DiscountDetailView.as_view(), name="discount_detail"),
-
     path('dues-plans/', views.DuesPlanListView.as_view(), name="dues_plan_list"),
     path('dues-plans/<pk>/', views.DuesPlanDetailView.as_view(), name="dues_plan_detail"),
 ]

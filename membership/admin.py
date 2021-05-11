@@ -3,7 +3,6 @@ from . import models
 # Register your models here.
 
 # admin.site.register(models.Membership)
-admin.site.register(models.Discount)
 admin.site.register(models.DuesPlan)
 admin.site.register(models.Invitation)
 
