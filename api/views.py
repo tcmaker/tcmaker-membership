@@ -3,6 +3,8 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from membership import serializers, models
+from keyfobs.models import Keyfob
+from keyfobs.serializers import KeyfobSerializer
 
 class PersonViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
@@ -26,3 +28,8 @@ class DuesPlanViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAdminUser]
     queryset = models.DuesPlan.objects.all()
     serializer_class = serializers.DuesPlanSerializer
+
+class KeyfobViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsAdminUser]
+    queryset = Keyfob.objects.all()
+    serializer_class = KeyfobSerializer

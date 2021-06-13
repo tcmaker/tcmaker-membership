@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'membership.apps.MembershipConfig',
     'management.apps.ManagementConfig',
     'api.apps.ApiConfig',
+    'keyfobs.apps.KeyfobsConfig',
 ]
 
 MIDDLEWARE = [
