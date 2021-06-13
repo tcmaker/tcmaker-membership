@@ -8,5 +8,4 @@ PersonFilter(django_filters.FilterSet):
             'given_name': ['exact', 'iexact'],
             'family_name': ['exact', 'iexact'],
             'email_name': ['exact', 'iexact'],
-            'keyfob_code': ['exact'],
         }

@@ -23,4 +23,3 @@ class PersonFactory(factory.django.DjangoModelFactory):
     emergency_contact_name = factory.Faker('name')
     emergency_contact_phone = "+18885558888"  # TODO: Get Faker to generate US phone numbers
 
-    keyfob_code = factory.Faker('msisdn')
