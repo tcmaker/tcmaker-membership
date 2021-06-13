@@ -10,7 +10,7 @@ class PersonViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     queryset = models.Person.objects.all()
     serializer_class = serializers.PersonSerializer
-    filterset_fields = ['given_name', 'family_name', 'email', 'keyfob_code']
+    filterset_fields = ['given_name', 'family_name', 'email',]
 
 class HouseholdViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
