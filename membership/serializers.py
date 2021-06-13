@@ -10,7 +10,6 @@ class HouseholdSerializer(HyperlinkedModelSerializer):
             'id',
             'created_at',
             'updated_at',
-            'keyfob_code',
         ]
 
 class StudentTeamSerializer(HyperlinkedModelSerializer):
