@@ -44,9 +44,6 @@ class Person(BaseEntity):
     emergency_contact_name = models.CharField(max_length=100)
     emergency_contact_phone = PhoneNumberField()
 
-    # Building Access
-    keyfob_code = models.CharField('Keyfob Code', max_length=100)
-
     # Managers
     objects = managers.MemberManager()
 

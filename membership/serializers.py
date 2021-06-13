@@ -7,6 +7,7 @@ class HouseholdSerializer(HyperlinkedModelSerializer):
         model = Household
         exclude = ['notes']
         read_only_fields = [
+            'id',
             'created_at',
             'updated_at',
             'keyfob_code',
@@ -17,6 +18,7 @@ class StudentTeamSerializer(HyperlinkedModelSerializer):
         model = StudentTeam
         exclude = ['notes']
         read_only_fields = [
+            'id',
             'created_at',
             'updated_at',
         ]
@@ -28,8 +30,9 @@ class PersonSerializer(HyperlinkedModelSerializer):
         model = Person
         exclude = ['notes']
         read_only_fields = [
+            'id',
             'created_at',
-            'updated_at'
+            'updated_at',
         ]
 
 class DuesPlanSerializer(HyperlinkedModelSerializer):
@@ -37,7 +40,7 @@ class DuesPlanSerializer(HyperlinkedModelSerializer):
         model = DuesPlan
         exclude = ['notes']
         read_only_fields = [
+            'id',
             'created_at',
             'updated_at',
         ]
-

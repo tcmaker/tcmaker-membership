@@ -166,3 +166,5 @@ django_heroku.settings(locals())
 # Hack to get PostgreSQL to work on localhost
 if os.environ['SERVER_HOSTNAME'] == 'localhost':
     del DATABASES['default']['OPTIONS']['sslmode']
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
