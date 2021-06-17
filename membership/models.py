@@ -24,7 +24,7 @@ class Person(BaseEntity):
     given_name = models.CharField('Given Name', max_length=100)
     family_name = models.CharField('Family Name', max_length=100)
     email = models.EmailField('Email Address')
-    member_since = models.DateField('Date Joined')
+    member_since = models.DateField('Date Joined', blank=True, null=True)
 
     household = models.ForeignKey('Household', on_delete=models.SET_NULL, blank=True, null=True)
     student_team = models.ForeignKey('StudentTeam', on_delete=models.SET_NULL, blank=True, null=True)

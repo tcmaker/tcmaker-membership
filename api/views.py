@@ -33,3 +33,4 @@ class KeyfobViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAdminUser]
     queryset = Keyfob.objects.all()
     serializer_class = KeyfobSerializer
+    filterset_fields = ['access_level', 'is_active',]
