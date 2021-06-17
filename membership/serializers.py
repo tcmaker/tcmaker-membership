@@ -1,7 +1,6 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 from .models import Person, Household, DuesPlan, StudentTeam
 
-
 class HouseholdSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Household
