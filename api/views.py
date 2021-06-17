@@ -29,7 +29,7 @@ class DuesPlanViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.DuesPlan.objects.all()
     serializer_class = serializers.DuesPlanSerializer
 
-class KeyfobViewSet(viewsets.ReadOnlyModelViewSet):
+class KeyfobViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     queryset = Keyfob.objects.all()
     serializer_class = KeyfobSerializer
