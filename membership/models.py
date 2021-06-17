@@ -138,9 +138,9 @@ MEMBERSHIP_STATUSES = [
 
 class MembershipEntity(BaseEntity):
     name = models.CharField('Name', max_length=100, help_text='e.g. Team SkyNet')
-    valid_through = models.DateField()
+    valid_through = models.DateField(null=True, blank=True)
     contact = models.ForeignKey('Person', on_delete=models.CASCADE, related_name='administered_%(class)s_set')
-    valid_through = models.DateTimeField()
+    valid_through = models.DateTimeField(null=True,blank=True)
     status = models.CharField('Status', choices=MEMBERSHIP_STATUSES, default='incomplete', max_length=50)
 
     def __str__(self):
