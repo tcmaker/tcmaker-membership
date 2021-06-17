@@ -173,22 +173,22 @@ class Household(MembershipEntity):
 
     def has_vacancy_for(self, person):
         max_members = MAXIMUM_HOUSEHOLD_MEMBERS
-        if (self.discount and not self.discount.allow_family_memberships):
-            max_members = 1
+        # if (self.discount and not self.discount.allow_family_memberships):
+        #     max_members = 1
         return self.person_set.exclude(pk=person.id).count() < max_members
 
-    def __eligible_for_discount(self):
-        # This is America: everyone is eligible to pay full price
-        if not self.discount:
-            return True
-        return self.person_set.count() <= 1
-
-    def clean(self):
-        if not self.__eligible_for_discount():
-            raise ValidationError({
-                'discount': 'Multiperson households are not eligible for this discount.'
-            })
-        return super().clean()
+    # def __eligible_for_discount(self):
+    #     # This is America: everyone is eligible to pay full price
+    #     if not self.discount:
+    #         return True
+    #     return self.person_set.count() <= 1
+    #
+    # def clean(self):
+    #     if not self.__eligible_for_discount():
+    #         raise ValidationError({
+    #             'discount': 'Multiperson households are not eligible for this discount.'
+    #         })
+    #     return super().clean()
 
 ### Invitations allow someone to add a new person to a household or team they
 ### manage.
