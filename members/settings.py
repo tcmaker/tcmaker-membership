@@ -169,3 +169,6 @@ if os.environ['SERVER_HOSTNAME'] == 'localhost':
     del DATABASES['default']['OPTIONS']['sslmode']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
+STRIPE_PUBLISHABLE_KEY = os.environ['STRIPE_PUBLISHABLE_KEY']
