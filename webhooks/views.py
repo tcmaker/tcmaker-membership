@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from functools import wraps
 
 import json
+import stripe
 
 def uses_stripe(view_func):
     @wraps(view_func)
@@ -35,9 +36,6 @@ def receive_webhook(request):
         handle_update_subscription(event)
 
     return HttpResponse(status=200)
-
-
-
 
 def handle_create_subscription(event):
     pass
