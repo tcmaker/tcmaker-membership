@@ -60,10 +60,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     # Mine
-    'membership.apps.MembershipConfig',
-    'management.apps.ManagementConfig',
     'api.apps.ApiConfig',
     'keyfobs.apps.KeyfobsConfig',
+    'management.apps.ManagementConfig',
+    'membership.apps.MembershipConfig',
+    'webhooks.apps.WebhooksConfig',
 ]
 
 MIDDLEWARE = [

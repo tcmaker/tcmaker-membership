@@ -21,7 +21,7 @@ urlpatterns = [
     path('', include('management.urls')),
     path('membership/', include('membership.urls')),
     path('api/v1/', include('api.urls')),
-
+    path('webhooks/', include('webhooks.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     # Generally, this should go last.
