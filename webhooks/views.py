@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from membership.models import Household
+
+from datetime import datetime
 from functools import wraps
 
 import json
@@ -29,16 +32,27 @@ def receive_webhook(request):
         # Invalid Payload
         return HttpResponse(status=400)
 
+    print(event.type)
     # handle event
-    if event.type == 'subscription.created':
+    if event.type == 'customer.subscription.created':
         handle_create_subscription(event)
-    if event.type == 'subscription.updated':
+    if event.type == 'customer.subscription.updated':
         handle_update_subscription(event)
 
     return HttpResponse(status=200)
 
 def handle_create_subscription(event):
-    pass
+    subscription = event.data.object
+    household = Household.objects.get(external_customer_identifier=subscription.customer)
+    household.status = subscription.status
+    household.valid_through = datetime.utcfromtimestamp(subscription.current_period_end)
+    household.external_subscription_identifier = subscription.id
+    household.save()
 
 def handle_update_subscription(event):
-    pass
+    subscription = event.data.object
+    household = Household.objects.get(external_customer_identifier=subscription.customer)
+    household.status = subscription.status
+    household.valid_through = datetime.utcfromtimestamp(subscription.current_period_end)
+    household.external_subscription_identifier = subscription.id
+    household.save()
