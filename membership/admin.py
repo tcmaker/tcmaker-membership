@@ -30,6 +30,10 @@ class PersonAdmin(admin.ModelAdmin):
             'fields': ('emergency_contact_name', 'emergency_contact_phone')
         }),
 
+        ('Integrations', {
+            'fields': ('civicrm_contact_id',)
+        })
+
         ('Staff Only', {
             'fields': ('notes',)
         })
