@@ -32,11 +32,11 @@ class PersonAdmin(admin.ModelAdmin):
 
         ('Integrations', {
             'fields': ('civicrm_contact_id',)
-        })
+        }),
 
         ('Staff Only', {
             'fields': ('notes',)
-        })
+        }),
     )
 
 @admin.register(models.Household)
