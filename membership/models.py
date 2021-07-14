@@ -44,6 +44,9 @@ class Person(BaseEntity):
     emergency_contact_name = models.CharField(max_length=100)
     emergency_contact_phone = PhoneNumberField()
 
+    # Temporary, until CiviCRM import is complete
+    civicrm_contact_id = models.CharField('CiviCRM Contact ID', max_length=5, null=True, blank=True)
+
     # Managers
     objects = managers.MemberManager()
 
