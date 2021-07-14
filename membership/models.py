@@ -41,8 +41,8 @@ class Person(BaseEntity):
     phone_can_receive_sms = models.BooleanField(null=False, default=False)
 
     # Emergency Contact Information
-    emergency_contact_name = models.CharField(max_length=100)
-    emergency_contact_phone = PhoneNumberField()
+    emergency_contact_name = models.CharField(max_length=100, blank=True, null=True)
+    emergency_contact_phone = PhoneNumberField(blank=True, null=True)
 
     # Temporary, until CiviCRM import is complete
     civicrm_contact_id = models.CharField('CiviCRM Contact ID', max_length=5, null=True, blank=True)
