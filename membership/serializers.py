@@ -1,7 +1,7 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 from .models import Person, Household, DuesPlan, StudentTeam
 
-from keyfobs.models import KeyfobSerializer
+from keyfobs.serializers import KeyfobSerializer
 
 class HouseholdSerializer(HyperlinkedModelSerializer):
     class Meta:
