@@ -33,3 +33,24 @@ class Keyfob(BaseEntity):
             self.person.given_name,
             self.code
         )
+
+
+    def compute_is_membership_valid(self):
+        if self.person.household:
+            return self.person.household.status == 'active'
+        if sedlf.person.student_team:
+            return self.person.student_team.status == 'active'
+        return False
+
+    def compute_membership_valid_through(self):
+        if self.person.household:
+            return self.person.household.valid_through
+        if self.person.student_team:
+            return self.person.student_team.valid_through
+        return None
+
+
+
+
+    def membership_valid_through(self):
+        pass
