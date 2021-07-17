@@ -38,7 +38,7 @@ class Keyfob(BaseEntity):
     def compute_is_membership_valid(self):
         if self.person.household:
             return self.person.household.status == 'active'
-        if sedlf.person.student_team:
+        if self.person.student_team:
             return self.person.student_team.status == 'active'
         return False
 
