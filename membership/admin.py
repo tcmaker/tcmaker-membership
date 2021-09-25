@@ -8,7 +8,19 @@ admin.site.register(models.Invitation)
 
 @admin.register(models.Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'family_name', 'given_name', 'email', 'phone_number')
+    list_display = ('__str__', 'family_name', 'given_name', 'email', 'phone_number', 'status',)
+    search_fields = ['Given Name', 'Family Name', 'Email Address', 'student_team','status', '__str__']
+    autocomplete_fields = ['Membership Information']
+    list_filter = ['status', 'student_team']
+    
+    def get_ordering(self, request):
+        return ['int_identifier']
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.extra(
+            select={'int_identifier': 'CAST(identifier AS INTEGER)'}
+        ).order_by('int_identifier')
     fieldsets = (
         ('Basic Information', {
             'fields': ('given_name', 'family_name', 'email', 'member_since')
@@ -42,7 +54,29 @@ class PersonAdmin(admin.ModelAdmin):
 @admin.register(models.Household)
 class HouseholdAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'status', 'contact')
+    search_fields = ['Given Name', 'Family Name', 'Email Address', 'student_team','status', '__str__']
+    list_filter = ['status', ]
+    
+    def get_ordering(self, request):
+        return ['int_identifier']
 
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.extra(
+            select={'int_identifier': 'CAST(identifier AS INTEGER)'}
+        ).order_by('int_identifier')
+        
 @admin.register(models.StudentTeam)
 class StudentTeamAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'status', 'contact')
+    search_fields = ['Given Name', 'Family Name', 'Email Address', 'student_team','status', '__str__']
+    list_filter = ['status', 'student_team']
+    
+    def get_ordering(self, request):
+        return ['int_identifier']
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.extra(
+            select={'int_identifier': 'CAST(identifier AS INTEGER)'}
+        ).order_by('int_identifier')
