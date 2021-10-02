@@ -10,7 +10,7 @@ from datetime import datetime
 def _compute_voting_list():
     voters = []
     cutoff = datetime(2021, 9, 20)
-    for household in Household.objects.filter(valid_through__gte=cutoff):
+    for household in Household.objects.filter(valid_through__gte=cutoff).order_by('family_name', 'given_name'):
         for person in household.person_set.all():
             voters.append(person)
     return voters
