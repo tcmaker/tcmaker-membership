@@ -77,6 +77,13 @@ class Person(BaseEntity):
             return self.student_team.status
         return 'none'
 
+    def household_or_student_team(self):
+        if self.household:
+            return self.household.name
+        if self.student_team:
+            return self.student_team.name
+        return None
+
     #### custom validation of member fields ####
     def __household_has_vacancies(self):
         if self.household == None:

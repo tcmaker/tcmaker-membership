@@ -8,7 +8,11 @@ admin.site.register(models.Invitation)
 
 @admin.register(models.Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'family_name', 'given_name', 'email', 'phone_number')
+    list_display = ('family_name', 'given_name', 'email', 'phone_number', 'membership_status', 'household_or_student_team')
+    search_fields = ['given_name', 'family_name', 'email', 'student_team__name',]
+    list_filter = ['student_team__name']
+    ordering = ['family_name', 'given_name']
+
     fieldsets = (
         ('Basic Information', {
             'fields': ('given_name', 'family_name', 'email', 'member_since')
@@ -41,8 +45,13 @@ class PersonAdmin(admin.ModelAdmin):
 
 @admin.register(models.Household)
 class HouseholdAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'status', 'contact')
+    list_display = ('__str__', 'status', 'contact', 'external_customer_identifier')
+    list_filter = ['status', ]
+    search_fields = ['name',]
+    ordering = ['name']
 
 @admin.register(models.StudentTeam)
 class StudentTeamAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'status', 'contact')
+    search_fields = ['name',]
+    list_filter = ['status',]
