@@ -10,9 +10,10 @@ from datetime import datetime
 def _compute_voting_list():
     voters = []
     cutoff = datetime(2021, 9, 20)
-    for household in Household.objects.filter(valid_through__gte=cutoff).order_by('family_name', 'given_name'):
+    for household in Household.objects.filter(valid_through__gte=cutoff):
         for person in household.person_set.all():
             voters.append(person)
+    voters.sort(key=lambda x: x.family_name + ' ' + x.given_name)
     return voters
 
 def voting_list_2021(request):
