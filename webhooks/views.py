@@ -38,6 +38,8 @@ def receive_webhook(request):
         handle_create_subscription(event)
     if event.type == 'customer.subscription.updated':
         handle_update_subscription(event)
+    if event.type == 'invoice.created':
+        handle_invoice_created(event)
 
     return HttpResponse(status=200)
 
@@ -56,3 +58,8 @@ def handle_update_subscription(event):
     household.valid_through = datetime.utcfromtimestamp(subscription.current_period_end)
     household.external_subscription_identifier = subscription.id
     household.save()
+
+def handle_invoice_created(event):
+    invoice = event.data.object
+    if invoice.subscription:
+        stripe.Invoice.finalize_invoice(invoice.id)
