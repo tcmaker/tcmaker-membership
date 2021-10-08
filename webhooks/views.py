@@ -63,3 +63,4 @@ def handle_invoice_created(event):
     invoice = event.data.object
     if invoice.subscription:
         stripe.Invoice.finalize_invoice(invoice.id)
+        invoice.send_invoice()
