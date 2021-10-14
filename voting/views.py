@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from membership.models import Household, Person
+from django.contrib.auth.decorators import login_required
 
 import csv
 import random
@@ -16,12 +17,14 @@ def _compute_voting_list():
     voters.sort(key=lambda x: x.family_name + ' ' + x.given_name)
     return voters
 
+@login_required
 def voting_list_2021(request):
     voters = _compute_voting_list()
     return render(request, 'voting/index.html', {
         'voters': voters,
     })
 
+@login_required
 def voting_list_2021_csv(request):
     voters = _compute_voting_list()
 
