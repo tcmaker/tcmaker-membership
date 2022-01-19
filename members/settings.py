@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'keyfobs.apps.KeyfobsConfig',
     'management.apps.ManagementConfig',
     'membership.apps.MembershipConfig',
+    'reporting.apps.ReportingConfig',
     'voting.apps.VotingConfig',
     'webhooks.apps.WebhooksConfig',
 ]
